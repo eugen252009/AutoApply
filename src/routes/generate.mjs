@@ -35,7 +35,7 @@ async function post(req, res) {
         test = JSON.parse(response)
     } catch (error) {
         console.error(error)
-        test = JSON.parse(readFileSync("response.json"))
+        test = JSON.parse(readFileSync("responses/response-1750790125751.json"))
     }
     const file = writeFile(`response-${Date.now()}.json`, response)
     const msg = mailer.send({

@@ -18,7 +18,9 @@ Mach die Zeilenumbrücke bitte mit <br>.
 Mir reicht es wenn du nach dem Betreff anfängst und beim Mit freundlichen Grüßen aufhörst.
 Mein Name ist Eugen Lupricht.
 Kannst du die Ticks am Anfang und Ende weglassen.
-Kannst du daraus jetzt ein JSON objekt machen wo der Text in "body", der Betreff in "subject" und die Email vom adressanten in "email" steht. Falls es keine Email gibt, trage bitte "eu.lupricht@gmail.com" ein.
+Kannst du daraus jetzt ein JSON objekt machen wo der Text in "body", der Betreff in "subject" und die Email vom adressanten in "email" steht.
+Aktuell stimmt was mit dem Objekt nicht, es lässt sich nicht parsen.
+Falls es keine Email gibt, trage bitte "eu.lupricht@gmail.com" ein.
 ---
 ${input}
 --- ` )
