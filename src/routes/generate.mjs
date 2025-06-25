@@ -1,5 +1,5 @@
-import { readFileSync, createReadStream } from "node:fs";
-import { ki, mailer } from "../index.mjs";
+import { createReadStream } from "node:fs";
+import { ki, logger, mailer } from "../index.mjs";
 import { writeFile } from "node:fs/promises"
 
 export function generate(req, res) {
@@ -11,10 +11,6 @@ export function generate(req, res) {
             get();
             break;
     }
-    if (req.method == "POST") {
-        post(req, res)
-    }
-
 }
 
 function get() {
@@ -29,19 +25,22 @@ async function post(req, res) {
         return
     }
     res.write("Sending to GPT\n");
+    logger.log("Sending to GPT")
     const response = await ki.ASKKI(text);
     let test;
     res.write("parsing from GPT\n");
+    logger.log("parsing from GPT")
     try {
-        //Temporärer Fix
         test = JSON.parse(response)
     } catch (error) {
-        console.error(error)
-        test = JSON.parse(readFileSync("responses/response-1750790125751.json"))
+        res.end(error)
+        return
     }
     res.write("finalizing response\n");
+    logger.log("finalizing response")
     const file = writeFile(`responses/response-${Date.now()}.json`, response)
     res.write("sending Email\n");
+    logger.log("sending Email")
     const msg = mailer.send({
         to: "eu.lupricht@gmail.com",
         from: "eu.lupricht@gmail.com",
@@ -54,7 +53,9 @@ async function post(req, res) {
     })
     await file;
     res.write("file written\n");
+    logger.log("file written")
     await msg;
     res.write("Email sent\n");
+    logger.log("Email sent")
     res.end(response)
 }

@@ -21,7 +21,6 @@ export class Mailer {
     }
 
     async send({ from, to, subject, text, html, attachments }) {
-        logger.log({ from, to, subject, text, html, attachments });
         const result = await this._mailer.sendMail({
             from,
             to,
@@ -30,7 +29,7 @@ export class Mailer {
             html,
             attachments
         });
-        logger.log(result)
+        logger.info(result)
         return result
     }
 }

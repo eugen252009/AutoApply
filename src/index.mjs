@@ -6,8 +6,7 @@ import Logger from "./logger/loggertypes.mjs"
 
 export const mailer = new Mailer();
 export const ki = new KI();
-export const logger = new Logger.DBLOGGER();
+export const logger = new Logger.ConsoleLogger();
 const server = new Server();
 
-logger.log({ test: "test" })
 server.start()
