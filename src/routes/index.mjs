@@ -1,5 +1,5 @@
-import {createReadStream} from "node:fs"
+import { createReadStream } from "node:fs"
 
-export function indexRoute(req, res){
-            createReadStream("src/routes/index.html").pipe(res)
-} 
+export function indexRoute(req, res) {
+    createReadStream("src/routes/index.html").pipe(res)
+}

@@ -1,16 +1,19 @@
 import OpenAI from "openai";
+import { logger } from "./index.mjs"
+
 export class KI {
-    constructor(){
+    constructor() {
         this._client = new OpenAI();
     }
-    init(){
+    init() {
     }
     _append(input) {
         return (
             `Schreibe mir bitte ein Anschreiben für die Bewerbung.
 Ich bin ein Quereinsteiger im Bereich IT, aber mit viel Berufserfahrung als Konstruktionsmechaniker. Jetzt möchte ich mich in der IT versuchen.
 Ich bin vorwiegend in der Webentwicklung freizeittechnisch unterwegs. Programmiere aber auch in GO und lerne gerade C/C++.
-Mein Github ist https:github.com/eugen252009. Mach den Link Klickbar.
+Mein Github ist https://github.com/eugen252009. Mach den Link Klickbar. 
+Ich habe auch eine Webseite mit aktuellen Projekten unter https://lupricht.net.
 Verweise sie bitte darauf. Schreibe mir bitte nur das Anschreiben, ohne Kommentare.
 Beachte bitte, das es als HTML-Email geschrieben wird und Im Anhang der Lebenslauf ist.
 Die Schriftart und größe sollte Arial 12 sein.
@@ -26,12 +29,12 @@ ${input}
 --- ` )
     }
 
-    async ASKKI(message){
-         const response = await this._client.responses.create({
-            model: "gpt-4.1",
+    async ASKKI(message) {
+        const response = await this._client.responses.create({
+            model: "gpt-4.1-nano",
             input: this._append(message),
         });
-        console.log(response)
+        logger.log(response)
         return response.output_text;
-    }    
+    }
 }

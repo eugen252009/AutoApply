@@ -1,7 +1,6 @@
 import express from "express";
 import { routes } from "./routes/routes.mjs";
-
-
+import { logger } from "./index.mjs";
 
 export class Server {
     constructor() {
@@ -16,7 +15,7 @@ export class Server {
     }
     start() {
         this.App.listen(8080, () => {
-            console.log("Server started...")
+            logger.log("Server started...")
         })
     }
 

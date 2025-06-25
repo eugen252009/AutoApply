@@ -28,8 +28,10 @@ async function post(req, res) {
         res.end("No Data Send!");
         return
     }
+    res.write("Sending to GPT\n");
     const response = await ki.ASKKI(text);
     let test;
+    res.write("parsing from GPT\n");
     try {
         //Temporärer Fix
         test = JSON.parse(response)
@@ -37,7 +39,9 @@ async function post(req, res) {
         console.error(error)
         test = JSON.parse(readFileSync("responses/response-1750790125751.json"))
     }
-    const file = writeFile(`response-${Date.now()}.json`, response)
+    res.write("finalizing response\n");
+    const file = writeFile(`responses/response-${Date.now()}.json`, response)
+    res.write("sending Email\n");
     const msg = mailer.send({
         to: "eu.lupricht@gmail.com",
         from: "eu.lupricht@gmail.com",
@@ -48,7 +52,9 @@ async function post(req, res) {
             { filename: "Lebenslauf.pdf", content: createReadStream("files/lebenslauf.pdf") }
         ]
     })
-    await msg;
     await file;
+    res.write("file written\n");
+    await msg;
+    res.write("Email sent\n");
     res.end(response)
 }
